@@ -9,7 +9,7 @@ use App\Calculadora\Impostos\Iss;
 use App\Calculadora\Orcamento;
 
 $orcamento = new Orcamento();
-$orcamento->valor = 600;
+$orcamento->valor = 500;
 $orcamento->quantidadeItens = 5;
 
 /*
@@ -31,7 +31,7 @@ echo 'Padrão Chain of Responsabiliy';
 echo '<hr>';
 
 $calculadoraDesconto = new CalculadoraDesconto();
-echo 'Desconto => ' . $calculadoraDesconto->calcularDescontos($orcamento);
+echo 'Desconto => ' . $calculadoraDesconto->calcular($orcamento);
 
 
 

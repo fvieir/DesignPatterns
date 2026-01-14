@@ -2,18 +2,23 @@
 
 namespace App\Calculadora;
 
+use App\Calculadora\Descontos\CalcularDesconto5Items;
+use App\Calculadora\Descontos\CalcularDescontoAcima500Reais;
+use App\Calculadora\Descontos\Desconto5Items;
+use App\Calculadora\Descontos\DescontoAcima500Reais;
+use App\Calculadora\Descontos\SemDesconto;
+
 class CalculadoraDesconto {
 
-    public function calcularDescontos (Orcamento $orcamento): float {
-        if ($orcamento->quantidadeItens > 5) {
-            return $orcamento->valor * 0.1;
-        }
+    public function calcular (Orcamento $orcamento): float {
 
-        if ($orcamento->valor > 500) {
-            return $orcamento->valor * 0.06;
-        }
+        $cadeiaDescontos = new Desconto5Items(
+            new DescontoAcima500Reais(
+                new SemDesconto(null)
+            )
+        );
 
-        return 0;
+        return $cadeiaDescontos->calcularDesconto($orcamento);
     }
 
 }
