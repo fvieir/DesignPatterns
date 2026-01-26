@@ -11,4 +11,8 @@ class Aprovado extends EstadoOrcamento
         return $orcamento->valor * 0.05;
     }
 
+    public function finaliza(Orcamento $orcamento): void
+    {
+        $orcamento->estadoAtual = new Finalizado();
+    }
 }
