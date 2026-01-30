@@ -3,17 +3,25 @@
 namespace App\Command;
 
 use App\Calculadora\Orcamento;
+use App\Pedido\AcoesDoPedido\AcoesAposGerarPedido;
 use App\Pedido\Pedido;
 use DateTimeImmutable;
 
 class GerarPedidoLidar {
 
-    public function __construct(
-        // Instanciar classes de envio de email
-        // Instanciar classes de logs
-    ) {}
+    /**
+     * Summary of acoes
+     * @var AcoesAposGerarPedido[]
+     */
+    private array $acoes = [];
 
-    public function executar (GerarPedido $gerarPedido,) 
+    public function __construct () {}
+
+    public function acoes(AcoesAposGerarPedido $acao): void {
+        $this->acoes[] = $acao;
+    }
+
+    public function executar (GerarPedido $gerarPedido,): void 
     {
         $orcamento = new Orcamento();
         $orcamento->quantidadeItens = $gerarPedido->getNumeroItens();
@@ -24,9 +32,9 @@ class GerarPedidoLidar {
         $pedido->setOrcamento($orcamento);
         $pedido->setDataFinazalicao(new DateTimeImmutable());
        
-        
-        echo "Cria pedido no banco de dados" . PHP_EOL;
-        echo "Envia e-mail para cliente" . PHP_EOL;
+        foreach ($this->acoes as $key => $acao) {
+            $acao->acaoAposCriarPedido($pedido);
+        }
     }
 
 }

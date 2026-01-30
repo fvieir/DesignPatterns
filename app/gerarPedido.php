@@ -2,8 +2,8 @@
 
 use App\Command\GerarPedido;
 use App\Command\GerarPedidoLidar;
-
-
+use App\Pedido\AcoesDoPedido\EnviarEmailPedido;
+use App\Pedido\AcoesDoPedido\GerarLogPedido;
 
 require __DIR__. '/vendor/autoload.php';
 
@@ -13,6 +13,8 @@ $nomeCliente = $argv[2];
 
 $gerarPedido = new GerarPedido($nomeCliente, $numeroDeItens, $valorOrcamento);
 $gerarPedidoLidar = new GerarPedidoLidar();
+$gerarPedidoLidar->acoes(new EnviarEmailPedido());
+$gerarPedidoLidar->acoes(new GerarLogPedido());
 $gerarPedidoLidar->executar($gerarPedido);
 
 

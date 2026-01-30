@@ -10,9 +10,6 @@ class Pedido {
     private Orcamento $orcamento;
     private DateTimeInterface $dataFinalizacao;
 
-    public function __construct(
-    ){}
-
     public function setNomeCliente(string $nomeCliente) {
         $this->nomeCliente = $nomeCliente;
     }
