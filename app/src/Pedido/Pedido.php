@@ -6,9 +6,9 @@ use App\Calculadora\Orcamento;
 use DateTimeInterface;
 
 class Pedido {
-    private string $nomeCliente;
-    private Orcamento $orcamento;
-    private DateTimeInterface $dataFinalizacao;
+    public string $nomeCliente;
+    public Orcamento $orcamento;
+    public DateTimeInterface $dataFinalizacao;
 
     public function setNomeCliente(string $nomeCliente) {
         $this->nomeCliente = $nomeCliente;

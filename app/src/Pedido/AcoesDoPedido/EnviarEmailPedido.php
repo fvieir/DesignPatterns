@@ -2,11 +2,11 @@
 
 namespace App\Pedido\AcoesDoPedido;
 
-use App\Pedido\Pedido;
+use SplObserver;
+use SplSubject;
 
-class EnviarEmailPedido implements AcoesAposGerarPedido {
-
-    public function acaoAposCriarPedido(Pedido $pedido): void {
+class EnviarEmailPedido implements SplObserver {
+    public function update(SplSubject $pedido): void {
         echo 'Enviar Email do Pedido gerado' . PHP_EOL;
     }
 

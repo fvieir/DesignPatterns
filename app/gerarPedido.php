@@ -2,6 +2,7 @@
 
 use App\Command\GerarPedido;
 use App\Command\GerarPedidoLidar;
+use App\Pedido\AcoesDoPedido\SalvarPedidoBD;
 use App\Pedido\AcoesDoPedido\EnviarEmailPedido;
 use App\Pedido\AcoesDoPedido\GerarLogPedido;
 
@@ -12,9 +13,11 @@ $numeroDeItens = (float) $argv[1];
 $nomeCliente = $argv[2];
 
 $gerarPedido = new GerarPedido($nomeCliente, $numeroDeItens, $valorOrcamento);
+
 $gerarPedidoLidar = new GerarPedidoLidar();
-$gerarPedidoLidar->acoes(new EnviarEmailPedido());
-$gerarPedidoLidar->acoes(new GerarLogPedido());
+$gerarPedidoLidar->attach(new SalvarPedidoBD());
+$gerarPedidoLidar->attach(new EnviarEmailPedido());
+$gerarPedidoLidar->attach(new GerarLogPedido());
 $gerarPedidoLidar->executar($gerarPedido);
 
 

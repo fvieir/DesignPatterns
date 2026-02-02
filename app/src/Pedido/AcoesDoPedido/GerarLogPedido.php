@@ -2,12 +2,12 @@
 
 namespace App\Pedido\AcoesDoPedido;
 
-use App\Pedido\AcoesDoPedido\AcoesAposGerarPedido;
-use App\Pedido\Pedido;
+use SplObserver;
+use SplSubject;
 
-class GerarLogPedido implements AcoesAposGerarPedido {
+class GerarLogPedido implements SplObserver {
 
-    public function acaoAposCriarPedido(Pedido $pedido) : void {
+    public function update(SplSubject $pedido) : void {
         echo 'Gerar Log do Pedido gerado' . PHP_EOL;
     }
 

@@ -3,23 +3,21 @@
 namespace App\Command;
 
 use App\Calculadora\Orcamento;
-use App\Pedido\AcoesDoPedido\AcoesAposGerarPedido;
 use App\Pedido\Pedido;
 use DateTimeImmutable;
+use SplObserver;
+use SplSubject;
 
-class GerarPedidoLidar {
+class GerarPedidoLidar  implements SplSubject {
 
     /**
-     * Summary of acoes
-     * @var AcoesAposGerarPedido[]
+     * Summary of acoesAposGerarPedido
+     * @var SplObserver[]
      */
-    private array $acoes = [];
+    private array $acoesAposGerarPedido = [];
+    public Pedido $pedido;
 
     public function __construct () {}
-
-    public function acoes(AcoesAposGerarPedido $acao): void {
-        $this->acoes[] = $acao;
-    }
 
     public function executar (GerarPedido $gerarPedido,): void 
     {
@@ -31,10 +29,22 @@ class GerarPedidoLidar {
         $pedido->setNomeCliente($gerarPedido->getNomeCliente());
         $pedido->setOrcamento($orcamento);
         $pedido->setDataFinazalicao(new DateTimeImmutable());
-       
-        foreach ($this->acoes as $key => $acao) {
-            $acao->acaoAposCriarPedido($pedido);
-        }
+
+        $this->pedido = $pedido;
+        $this->notify();
     }
 
+    public function attach(SplObserver $observer): void {
+        $this->acoesAposGerarPedido[] = $observer;
+    }
+
+    public function detach(SplObserver $observer): void {
+
+    }
+
+    public function notify(): void {
+        foreach ($this->acoesAposGerarPedido as $acao) {
+            $acao->update($this);
+        }
+    }
 }

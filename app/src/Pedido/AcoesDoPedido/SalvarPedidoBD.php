@@ -1,13 +1,14 @@
 <?php
 
-namespace App\AcoesDoPedido;
+namespace App\Pedido\AcoesDoPedido;
 
-use App\Pedido\AcoesDoPedido\AcoesAposGerarPedido;
-use App\Pedido\Pedido;
+use SplObserver;
+use SplSubject;
 
-class SalvarPedidoBD implements AcoesAposGerarPedido {
+class SalvarPedidoBD implements SplObserver {
 
-    public function acaoAposCriarPedido(Pedido $pedido) : void {
+    public function update(SplSubject $pedido) : void {
+        \var_dump($pedido);
         echo 'Salvar Pedido gerado no banco de dados' . PHP_EOL;
     }
 
