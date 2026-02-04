@@ -4,7 +4,6 @@ namespace App\Calculadora;
 
 use App\Calculadora\EstadosOrcamento\EmAprovacao;
 use App\Calculadora\EstadosOrcamento\EstadoOrcamento;
-use Exception;
 
 class Orcamento
 {
@@ -21,17 +20,17 @@ class Orcamento
         return $this->estadoAtual->calculadoraDescontoExtra($this);
     }
 
-    public function aprova(Orcamento $orcamento): void
+    public function aprova(): void
     {
         $this->estadoAtual->aprova($this);
     }
 
-    public function reprova(Orcamento $orcamento): void
+    public function reprova(): void
     {
         $this->estadoAtual->reprova($this);
     }
 
-    public function finaliza(Orcamento $orcamento): void
+    public function finaliza(): void
     {
         $this->estadoAtual->finaliza($this);
     }
