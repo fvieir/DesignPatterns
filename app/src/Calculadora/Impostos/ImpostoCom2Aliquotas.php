@@ -4,10 +4,10 @@ namespace App\Calculadora\Impostos;
 
 use App\Calculadora\Orcamento;
 
-abstract class ImpostoCom2Aliquotas implements Imposto
+abstract class ImpostoCom2Aliquotas extends Imposto
 {
 
-    public function calcular(Orcamento $orcamento)
+    public function realizaCaculoEspecifico(Orcamento $orcamento)
     {
         if ($this->deveAplicarTaxaMaxima($orcamento)) {
             return $this->calcularTaxaMaxima($orcamento);
