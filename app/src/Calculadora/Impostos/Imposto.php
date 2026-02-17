@@ -17,11 +17,10 @@ abstract class Imposto {
     abstract protected function realizaCaculoEspecifico(Orcamento $orcamento);
     
     public function calcular(Orcamento $orcamento) {
-        return $this->realizaCaculoEspecifico($orcamento) + $this->outroImposto?->realizaOutroCalculo($orcamento);
+        return $this->realizaCaculoEspecifico($orcamento) + $this->realizaOutroCalculo($orcamento);
     }
 
     private function realizaOutroCalculo(Orcamento $orcamento) {
-        die(\gettype($this->outroImposto));
         return $this->outroImposto === null ? 0 : $this->realizaCaculoEspecifico($orcamento);
     }
 
