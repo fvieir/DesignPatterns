@@ -2,11 +2,11 @@
 
 namespace App\Calculadora;
 
-use App\Calculadora\Descontos\CalcularDesconto5Items;
-use App\Calculadora\Descontos\CalcularDescontoAcima500Reais;
 use App\Calculadora\Descontos\Desconto5Items;
 use App\Calculadora\Descontos\DescontoAcima500Reais;
 use App\Calculadora\Descontos\SemDesconto;
+use App\Calculadora\Facade\LogDesconto;
+use LogicException;
 
 class CalculadoraDesconto {
 
@@ -18,7 +18,10 @@ class CalculadoraDesconto {
             )
         );
 
-        return $cadeiaDescontos->calcularDesconto($orcamento);
+        $descontoCalulado = $cadeiaDescontos->calcularDesconto($orcamento);
+        LogDesconto::informar($descontoCalulado);
+
+        return $descontoCalulado;
     }
 
 }
